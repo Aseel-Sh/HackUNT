@@ -20,8 +20,10 @@ export default function signIn() {
 
     return(
         <div class="parent">
-            <label>Sign In</label>
-            <div>
+            <div class='title-container'>
+                <label>Login</label>
+            </div>
+            <div class="input-username"> 
                 <label>Username:</label>
                 <input
                 type='text'
@@ -31,7 +33,7 @@ export default function signIn() {
                 }}
                 onChange={() => {setUsername}}/>
             </div>
-            <div>
+            <div class='input-username'>
                 <label>Password:</label>
                 <input
                 style={{
@@ -47,7 +49,7 @@ export default function signIn() {
                 backgroundColor: "#CD04FF"
             }}
             onClick={validate}
-            >Submit</button>
+            >Login</button>
         </div>
     )
 }
