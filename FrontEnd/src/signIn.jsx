@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './styling.css'
 import 'nes.css/css/nes.min.css';
-
+import webs from './assets/webs.png'
 export default function signIn() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
@@ -32,7 +32,7 @@ export default function signIn() {
     }
 
     return(
-        <div>
+        <div style={{backgroundImage:`url(${webs})`}}>
             {/*Top Left Div */}
             <label style={styles.textDiv}>SyncItUp</label>
             
