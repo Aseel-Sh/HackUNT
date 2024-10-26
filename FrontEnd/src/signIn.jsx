@@ -103,7 +103,7 @@ export default function signIn() {
             }}>
                 <label>
                     <input type='checkbox' class="nes-checkbox is-dark" />
-                <span>Remember Me</span>
+                    <span>Remember Me</span>
             </label>
             </div>
 
