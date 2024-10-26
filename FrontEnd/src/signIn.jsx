@@ -34,7 +34,7 @@ export default function signIn() {
             >
                 <label>Login</label>
             </div>
-            <div class="nes-container is-dark"
+            <div className="nes-container is-dark"
                 style={{
                     fontSize: "2rem",
                     marginBottom: "2rem",
@@ -47,8 +47,12 @@ export default function signIn() {
                 type='text'
                 class = 'input.is-dark'
                 style={{
-                    backgroundColor: "#FF8408",
-                    color: "#00FF37"
+                    backgroundColor: "#AD02D7",
+                    color: "#00FF37",
+                    fontSize: "2rem",
+                    marginBottom: "2rem",
+                    border: "0",
+                    margin: "0"
                 }}
                 onChange={() => {setUsername}}/>
             </div>
@@ -75,35 +79,37 @@ export default function signIn() {
                 onChange={setPassword}/>
             </div>
             {/*Remember sign in and forgot password */}
-            <label class='nes-container is-dark'
+            <div class='nes-container is-dark'
             style={{
                 margin: "0",
                 border: "0"
             }}
             >
-                <input type='checkbox' class="nes-checkbox is-dark"/>
+                <input type='checkbox' class="nes-checkbox is-dark" />
                 <span>Remember Me</span>
-            </label>
-            <div>
-                <a class = "nes-container is-dark" href='https://google.com'
-                    style={{
-                        margin: "0",
-                        border: "0"
-                    }}
-                >Forgor Password</a>
             </div>
-            
-            <div
+
+            <div className='nes-container is-dark'
                 style={{
+                    display: "flex",
                     margin: "0",
-                    border: "0"
+                    border: "0",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "1rem"
                 }}
             >
+            <a href='https://google.com' style={{color:"white"}}>Forgor Password</a>
             <button
                 class="nes-btn"
                 onClick={validate}
+                style={{
+                    backgroundColor: "#FF8408",
+                    width: "60rem",
+                    padding: "0"
+                }}
             >Login</button>
-
             </div>
         </div>
     )
