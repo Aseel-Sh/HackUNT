@@ -1,4 +1,5 @@
 ﻿using Backend.Data.Data;
+using Backend.Data.Models;
 using Backend.Service.DTOs;
 using Backend.Service.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -39,11 +40,41 @@ namespace Backend.API.Controllers
             try
             {
                 await _userService.RegisterUserAsync(model);
-                return Ok("User registered successfully");
-            } catch
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, "An error occured while creating user");
+                return Ok(new ApiResponseModel<string> { Data = "User registered successfully" });
             }
+            catch (Exception ex) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel<string> { Status = false, Message = "An error occurred while creating the user.", Errors = new List<string> { ex.Message } });
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginUserDTO model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                // Check if user is active
+                var user = await _userService.ValidateUserAsync(model.UsernameOrEmail, model.Password);
+                if (user == null)
+                {
+                    return Unauthorized("Invalid email, number, username, password, or user is inactive.");
+                }
+
+                var token = _userService.GenerateJwtToken(user);
+                var userResponse = _userService.GetUserResponse(user);
+
+                return Ok(new ApiResponseModel<object> { Data = new { Success = "Login successful", User = userResponse, Token = token } });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponseModel<string> { Status = false, Message = "An error occurred while processing your request. Please try again later." });
+            }
+
         }
     } 
 }

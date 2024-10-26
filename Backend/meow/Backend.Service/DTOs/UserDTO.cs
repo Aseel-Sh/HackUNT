@@ -15,4 +15,11 @@ namespace Backend.Service.DTOs
         public string Password { get; set; }
         public string TimeZone { get; set; }
     }
+
+    public class LoginUserDTO
+    {
+        public string UsernameOrEmail { get; set; }
+        public string Password { get; set; }
+
+    }
 }
