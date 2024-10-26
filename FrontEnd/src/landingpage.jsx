@@ -1,11 +1,25 @@
 import { useState } from 'react'
 import './styling.css';
 import 'nes.css/css/nes.min.css';
+import webs from './assets/webs.png'
 
 export default function LandingPage() {
 
     return (
         <>
+        <div style={{
+            
+            }}>
+            <img src={webs} style={{
+                position: 'absolute',
+                height: '1920px',
+                width: '1080px',
+                top: '0',
+                left: '0',
+                
+            }} />
+        </div>
+
         <div className="nes-container is-dark with-title is-centered" 
         style={{
             textAlign: 'center',
@@ -23,7 +37,7 @@ export default function LandingPage() {
                 margin: '0'
             }}
             >SyncItUp</h1>
-            <p>Where people blah blah time zone blah blah</p>
+            <p>A time-aware meeting scheduler, where everyone’s availability is heard</p>
 
         </div>
         <div className="nes-container is-dark is-centered" style={{
@@ -34,7 +48,7 @@ export default function LandingPage() {
 
             <button className="nes-btn" style={{
                 backgroundColor: "#CD04FF",
-                boxShadow: "0"
+                boxShadow: "#680082"
             }}>Go To Dashboard</button>
         </div>
         
