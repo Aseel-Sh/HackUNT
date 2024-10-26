@@ -1,0 +1,6 @@
+@meow_HostAddress = http://localhost:5259
+
+GET {{meow_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
