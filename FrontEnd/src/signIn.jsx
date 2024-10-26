@@ -2,6 +2,8 @@ import { useState } from 'react'
 import './styling.css'
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
+
+
 export default function signIn() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
@@ -17,6 +19,17 @@ export default function signIn() {
           fontSize: '2rem',
           zIndex: 10,          // Ensure it's above other elements
         },
+        imageDiv: {
+            backgroundImage: `url(${webs})`,
+            position: 'absolute',
+            height: '100vh',
+            width: '100vw',
+            top: 0,
+            left: 0,    
+            transform: 'scale(.1)',
+            transform: 'scaleX(-1)',
+            zIndex: 1
+        }
       };
 
     //Backend logic here
@@ -32,7 +45,8 @@ export default function signIn() {
     }
 
     return(
-        <div style={{backgroundImage:`url(${webs})`}}>
+        <div>
+            <div style={styles.imageDiv}></div>
             {/*Top Left Div */}
             <label style={styles.textDiv}>SyncItUp</label>
             
