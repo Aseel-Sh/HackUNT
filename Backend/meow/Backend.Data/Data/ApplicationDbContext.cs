@@ -23,9 +23,17 @@ namespace Backend.Data.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Availability> Availabilities { get; set; }
+        public DbSet<Attachment> Attachments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Meetings)
+                .WithMany(m => m.Users);
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Availabilities)
+                .WithMany(a => a.Users);
 
         }
     }
