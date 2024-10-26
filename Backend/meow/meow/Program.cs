@@ -1,4 +1,6 @@
 using Backend.Data.Data;
+using Backend.Service.Interfaces;
+using Backend.Service.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 
 builder.Services.AddControllers();
