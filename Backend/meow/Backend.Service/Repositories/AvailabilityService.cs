@@ -80,5 +80,35 @@ namespace Backend.Service.Repositories
 
             return availabilities;
         }
+
+        public void UpdateAvailability(EditAvailabilityDTO availabilityDto)
+        {
+            var availability = _context.Availabilities.FirstOrDefault(a => a.Id == availabilityDto.Id);
+            if (availability == null)
+            {
+                throw new Exception("availability with that Id not found");
+            }
+
+            bool hasOverlap = _context.Availabilities.Any(a =>
+                a.UserId == availability.UserId &&
+                a.Id != availability.Id &&
+                (
+                    (availabilityDto.StartTime >= a.StartTime && availabilityDto.StartTime < a.EndTime) ||
+                    (availabilityDto.EndTime > a.StartTime && availabilityDto.EndTime <= a.EndTime) ||
+                    (availabilityDto.StartTime <= a.StartTime && availabilityDto.EndTime >= a.EndTime)
+                )
+            );
+
+            if (hasOverlap)
+            {
+                throw new Exception("Availability overlaps with an existing entry");
+            }
+
+            availability.StartTime = availabilityDto.StartTime;
+            availability.EndTime = availabilityDto.EndTime;
+
+            _context.Availabilities.Update(availability);
+            _context.SaveChanges();
+        }
     }
 }

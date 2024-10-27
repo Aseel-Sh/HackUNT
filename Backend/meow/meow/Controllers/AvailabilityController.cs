@@ -58,5 +58,24 @@ namespace Backend.API.Controllers
                 { Status = false, Message = "An error occurred while retrieving availabilities.", Errors = new List<string> { ex.Message }});
             }
         }
+
+        [HttpPut("availability")]
+        public IActionResult EditAvailability([FromBody] EditAvailabilityDTO availabilityDTO)
+        {
+            try
+            {
+                _availabilityService.UpdateAvailability(availabilityDTO);
+                return Ok(new ApiResponseModel<string> { Status = true, Message = "Availability Edited Successfully" }); 
+            }
+            catch (KeyNotFoundException ex) 
+            {
+                return NotFound(new ApiResponseModel<string> { Status = false, Message = ex.Message });
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel<string> { Status = false, Message = "Internal server error", Errors = new List<string> { ex.Message } });
+            }
+        }
     }
 }

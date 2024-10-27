@@ -13,4 +13,11 @@ namespace Backend.Service.DTOs
         public DateTimeOffset StartTime { get; set; }
         public DateTimeOffset EndTime { get; set; }
     }
+
+    public class EditAvailabilityDTO
+    {
+        public int Id {  get; set; }
+        public DateTimeOffset StartTime { get; set; }
+        public DateTimeOffset EndTime { get; set; }
+    }
 }
