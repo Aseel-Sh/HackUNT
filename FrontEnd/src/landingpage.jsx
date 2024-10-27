@@ -29,7 +29,8 @@ export default function LandingPage() {
             maxWidth: '200wh'
             
         }}> 
-            <img style={{width: "15vw"}} src={ghost}></img>
+            <img style={{width: "10vw"}} src={ghost}></img>
+            
 
         </div>
         <div className="nes-container is-dark is-centered" 
