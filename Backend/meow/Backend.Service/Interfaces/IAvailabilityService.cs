@@ -12,7 +12,7 @@ namespace Backend.Service.Interfaces
     {
         Task CreateAvailabilityAsync(CreateAvailabilityDTO dto);
         Task<List<Availability>> GetAvailabilitiesByUserIdAsync(int userId);
-        void UpdateAvailability(EditAvailabilityDTO ticketDto);
+        void UpdateAvailability(EditAvailabilityDTO availabilityDto);
         Task DeleteAvailabilityAsync(int id);
 
     }

@@ -27,6 +27,7 @@ namespace Backend.Service.DTOs
 
     public class EditUserDTO
     {
+        public int Id { get; set; } 
         public bool isActive { get; set; }
     }
 }

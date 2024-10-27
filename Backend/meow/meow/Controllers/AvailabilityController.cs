@@ -60,11 +60,11 @@ namespace Backend.API.Controllers
         }
 
         [HttpPut("availability")]
-        public IActionResult EditAvailability([FromBody] EditAvailabilityDTO availabilityDTO)
+        public IActionResult EditAvailability([FromBody] EditAvailabilityDTO availabilityDto)
         {
             try
             {
-                _availabilityService.UpdateAvailability(availabilityDTO);
+                _availabilityService.UpdateAvailability(availabilityDto);
                 return Ok(new ApiResponseModel<string> { Status = true, Message = "Availability Edited Successfully" });
             }
             catch (KeyNotFoundException ex)

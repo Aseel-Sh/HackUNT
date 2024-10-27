@@ -117,5 +117,21 @@ namespace Backend.Service.Repositories
             return user;
         }
 
+        public void UpdateUser(EditUserDTO userDTO)
+        {
+            var user = _context.Users.FirstOrDefault(a => a.Id == userDTO.Id);
+            if (user == null)
+            {
+                throw new Exception("user with that Id not found");
+            }
+
+            user.isActive = userDTO.isActive;
+
+            _context.Users.Update(user);
+            _context.SaveChanges();
+
+        }
+
+
     }
 }
