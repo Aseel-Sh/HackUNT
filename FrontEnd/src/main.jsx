@@ -5,9 +5,10 @@ import { createBrowserRouter, RouterProvider} from "react-router-dom"
 import App from './landingpage.jsx'
 import signIn from './signIn.jsx'
 import './styling.css'
+import Dashboard from './dashboard.jsx'
 
 
-const router = createBrowserRouter([
+/* const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
@@ -19,11 +20,11 @@ const router = createBrowserRouter([
     ]
   },
   
-])
-
+]) */
+/* <RouterProvider router={router}/> */
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <Dashboard/>
   </React.StrictMode>
 )
