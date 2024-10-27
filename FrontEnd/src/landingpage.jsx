@@ -2,23 +2,35 @@ import { useState } from 'react'
 import './styling.css';
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
+import ghost from './assets/Ghost.gif'
 
 export default function LandingPage() {
 
     return (
-        <>
-        <div style={{
+        <div classNAme="container" style={{
+            display: 'flex',
+            alignContent: 'center',
+            justifyContent: 'center'
+        }}>
+        <div className="web-container" style={{
              backgroundImage: `url(${webs})`,
              position: 'absolute',
              height: '100vh',
              width: '100vw',
              top: 0,
              left: 0,    
-             transform: 'scale(-1)',
+             transform: 'scale(.1)',
+             transform: 'scaleX(-1)',
              zIndex: 1
             }}>
         </div>
+        <div className="monster-container" style={{
+            zIndex: 2,
+            
+        }}> 
+            <img src={ghost}></img>
 
+        </div>
         <div className="nes-container is-dark is-centered" 
         style={{
             textAlign: 'center',
@@ -27,8 +39,10 @@ export default function LandingPage() {
             backgroundColor: '#212529',
             border: '0',
             margin: '0',
+            display: 'flex',
+            flexDirection: 'column',
             maxWidth: '50%',
-            
+            maxHeight: '50%'
             
         }}>
             <h1 
@@ -38,27 +52,26 @@ export default function LandingPage() {
                 alignContent: 'center',
                 border: '0',
                 margin: '0',
-                textWrap: 'wrap'
+                fontSize: '60px'
             }}
             >SyncItUp</h1>
-            <p>A time-aware meeting scheduler, where everyone's availability is heard</p>
-
-        </div>
-        <div className="nes-container is-dark is-centered" style={{
-            textAlign: 'center',
-            border: '0',
-            margin: '0'
-        }}>
-
-            <button className="nes-btn" style={{
-                backgroundColor: "#CD04FF",
-                boxShadow: "#680082"
-            }}>Go To Dashboard</button>
-        </div>
+            <p style={{
+                textWrap: 'wrap'
         
+            }}>A time-aware meeting scheduler, where everyone's availability is heard</p>
+             <button className="nes-btn" style={{
+                backgroundColor: "#CD04FF",
+                boxShadow: "#680082",
+                zIndex: 2,
+                color: 'white'
+            }}>Go To Dashboard</button>
+
+        </div>
+
+           
 
 
-    </>
+    </div>
     );
 
 }

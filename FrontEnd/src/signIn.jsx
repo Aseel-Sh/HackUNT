@@ -26,8 +26,9 @@ export default function signIn() {
             height: '100vh',
             width: '100vw',
             top: 0,
-            left: 0,
-            transform: 'scale(-1, -1)',
+            left: 0,    
+            transform: 'scale(.1)',
+            transform: 'scaleX(-1)',
             zIndex: 1
         }
       };
@@ -69,8 +70,7 @@ export default function signIn() {
                     fontSize: "2rem",
                     marginBottom: "2rem",
                     border: "0",
-                    margin: "0",
-                    zIndex: 3
+                    margin: "0"
                 }}
             > 
                 <label>Username:</label>
@@ -83,8 +83,7 @@ export default function signIn() {
                     fontSize: "2rem",
                     marginBottom: "2rem",
                     border: "0",
-                    margin: "0",
-                    zIndex: 3
+                    margin: "0"
                 }}
                 onChange={() => {setUsername}}/>
             </div>
@@ -93,8 +92,7 @@ export default function signIn() {
                     fontSize: "2rem",
                     marginBottom: "2rem",
                     border: "0",
-                    margin: "0",
-                    zIndex: 3
+                    margin: "0"
                 }}
             >
                 <label>Password:</label>
@@ -106,8 +104,7 @@ export default function signIn() {
                     fontSize: "2rem",
                     marginBottom: "2rem",
                     border: "0",
-                    margin: "0",
-                    zIndex: 3
+                    margin: "0"
                 }}
                 type='password'
                 onChange={setPassword}/>
@@ -137,20 +134,18 @@ export default function signIn() {
                     gap: "1rem"
                 }}
             >
-            <a href='https://google.com' style={{color:"white", zIndex: 3}}>Forgor Password</a>
+            <a href='https://google.com' style={{color:"white"}}>Forgor Password</a>
             <button
                 class="nes-btn"
                 onClick={validate}
                 style={{
                     backgroundColor: "#FF8408",
                     width: "60rem",
-                    padding: "0",
-                    zIndex: 3
+                    padding: "0"
                 }}
             >Login</button>
             <label style={{zIndex: 3}}>Don't have an account? <a href="./signUp" style={{color:'white', zIndex: 3}}>Sign Up</a></label>
             </div>
-
         </div>
     )
 }
