@@ -3,12 +3,12 @@ import './styling.css';
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
 import ghost from './assets/Ghost.gif'
-import { Link } from 'react-router-dom'
+/* import { Link } from 'react-router-dom' */
 
 export default function LandingPage() {
 
     return (
-        <div classNAme="container" style={{
+        <div className="container" style={{
             display: 'flex',
             alignContent: 'center',
             justifyContent: 'center'
@@ -28,7 +28,9 @@ export default function LandingPage() {
             zIndex: 2,
             backgroundColor: "#212529"
         }}> 
-            <img src={ghost}></img>
+            <img src={ghost} style={{
+                height: '30%'
+            }}></img>
         </div>
         <div className="nes-container is-dark is-centered" 
         style={{
