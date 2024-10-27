@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Backend.Data.Models.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -20,8 +21,9 @@ namespace Backend.Data.Models
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
-        public DateTimeOffset TimeZone { get; set; }
-        public bool isActive { get; set; }
+        public string TimeZone { get; set; } = "UTC";
+        public bool isActive { get; set; } = true;
+        public Roles roles { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public DateTime UpdatedAt { get; set; } = DateTime.Now;
 

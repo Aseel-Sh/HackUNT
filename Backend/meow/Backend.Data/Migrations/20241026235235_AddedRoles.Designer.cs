@@ -4,6 +4,7 @@ using Backend.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Backend.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241026235235_AddedRoles")]
+    partial class AddedRoles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +37,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("AvailabilityUser", (string)null);
+                    b.ToTable("AvailabilityUser");
                 });
 
             modelBuilder.Entity("Backend.Data.Models.Attachment", b =>
@@ -90,6 +93,43 @@ namespace Backend.Data.Migrations
                     b.ToTable("Availabilities");
                 });
 
+            modelBuilder.Entity("Backend.Data.Models.Meeting", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CreatedbyUserID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTimeOffset>("endTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("startTime")
+                        .HasColumnType("datetimeoffset");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Meetings");
+                });
+
             modelBuilder.Entity("Backend.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -133,39 +173,6 @@ namespace Backend.Data.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Meeting", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CreatedByUserID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Name");
-
-                    b.Property<DateTimeOffset>("endTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTimeOffset>("startTime")
-                        .HasColumnType("datetimeoffset");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Meetings");
-                });
-
             modelBuilder.Entity("MeetingUser", b =>
                 {
                     b.Property<int>("MeetingsId")
@@ -178,7 +185,7 @@ namespace Backend.Data.Migrations
 
                     b.HasIndex("UsersId");
 
-                    b.ToTable("MeetingUser", (string)null);
+                    b.ToTable("MeetingUser");
                 });
 
             modelBuilder.Entity("AvailabilityUser", b =>
@@ -209,7 +216,7 @@ namespace Backend.Data.Migrations
 
             modelBuilder.Entity("MeetingUser", b =>
                 {
-                    b.HasOne("Meeting", null)
+                    b.HasOne("Backend.Data.Models.Meeting", null)
                         .WithMany()
                         .HasForeignKey("MeetingsId")
                         .OnDelete(DeleteBehavior.Cascade)
