@@ -25,10 +25,9 @@ export default function signIn() {
             height: '100vh',
             width: '100vw',
             top: 0,
-            left: 0,    
-            transform: 'scale(.1)',
-            transform: 'scaleX(-1)',
-            zIndex: 1
+            left: 0,
+            transform: 'scale(-1, -1)',
+            zIndex: 4
         }
       };
 
@@ -69,7 +68,8 @@ export default function signIn() {
                     fontSize: "2rem",
                     marginBottom: "2rem",
                     border: "0",
-                    margin: "0"
+                    margin: "0",
+                    zIndex: 3
                 }}
             > 
                 <label>Username:</label>
@@ -91,7 +91,8 @@ export default function signIn() {
                     fontSize: "2rem",
                     marginBottom: "2rem",
                     border: "0",
-                    margin: "0"
+                    margin: "0",
+                    zIndex: 3
                 }}
             >
                 <label>Password:</label>
@@ -113,14 +114,14 @@ export default function signIn() {
             <div class='nes-container is-dark'
             style={{
                 margin: "0",
-                border: "0"
+                border: "0",
+                zIndex: 3
             }}>
-                <label>
-                    <input type='checkbox' class="nes-checkbox is-dark" />
-                    <span>Remember Me</span>
+            <label>
+                <input type='checkbox' class="nes-checkbox is-dark" />
+                <span>Remember Me</span>
             </label>
             </div>
-
 
             <div className='nes-container is-dark'
                 style={{
@@ -130,20 +131,21 @@ export default function signIn() {
                     flexDirection: "column",
                     alignItems: "center",
                     justifyContent: "center",
-                    gap: "1rem"
+                    gap: "1rem",
                 }}
             >
-            <a href='https://google.com' style={{color:"white"}}>Forgor Password</a>
+            <a href='https://google.com' style={{color:"white", zIndex: 4}}>Forgor Password</a>
             <button
                 class="nes-btn"
                 onClick={validate}
                 style={{
                     backgroundColor: "#FF8408",
                     width: "60rem",
-                    padding: "0"
+                    padding: "0",
+                    zIndex: 5
                 }}
             >Login</button>
-            <label>Don't have an account? <a href='https://google.com' style={{color:'white'}}>Sign Up</a></label>
+            <label style={{zIndex: 4}}>Don't have an account? <a href='https://google.com' style={{color:'white'}}>Sign Up</a></label>
             </div>
         </div>
     )
