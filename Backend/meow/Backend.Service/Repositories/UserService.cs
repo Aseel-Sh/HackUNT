@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using Backend.Data.Models.Enums;
 
 namespace Backend.Service.Repositories
 {
@@ -129,6 +130,24 @@ namespace Backend.Service.Repositories
 
             _context.Users.Update(user);
             _context.SaveChanges();
+
+        }
+
+        public async Task<List<UserDTO>> GetUsersAsync()
+        {
+            var users =  await _context.Users.Select(u => new UserDTO{
+                                                Id = u.Id,
+                                                Username = u.Username,
+                                                Email = u.Email,
+                                                TimeZone = u.TimeZone,
+                                                Role = u.roles
+                                              }).ToListAsync();
+            if (users == null || users.Count == 0)
+            {
+                throw new KeyNotFoundException("No users found");
+            }
+
+            return users;
 
         }
 

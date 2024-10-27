@@ -2,6 +2,7 @@
 using Backend.Data.Models;
 using Backend.Service.DTOs;
 using Backend.Service.Interfaces;
+using Backend.Service.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -96,5 +97,25 @@ namespace Backend.API.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel<string> { Status = false, Message = "Internal server error", Errors = new List<string> { ex.Message } });
             }
         }
+
+        [HttpGet("GetUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            try
+            {
+                var users = await _userService.GetUsersAsync();
+                return Ok(new ApiResponseModel<List<UserDTO>> { Status = true, Message = "users retrieved successfully", Data = users });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ApiResponseModel<string> { Status = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponseModel<string>
+                { Status = false, Message = "An error occurred while retrieving users.", Errors = new List<string> { ex.Message } });
+            }
+        }
     } 
+
 }

@@ -17,6 +17,7 @@ namespace Backend.Service.Interfaces
         public string GenerateJwtToken(User user);
         object GetUserResponse(User user);
         void UpdateUser(EditUserDTO userDTO);
+        Task<List<UserDTO>> GetUsersAsync();
 
 
 

@@ -18,6 +18,15 @@ namespace Backend.Service.DTOs
         public Roles Role { get; set; }
     }
 
+    public class UserDTO
+    {
+        public int Id { get; set; }
+        public string Username { get; set; }
+        public string Email { get; set; }
+        public string TimeZone { get; set; }
+        public Roles Role { get; set; }
+    }
+
     public class LoginUserDTO
     {
         public string UsernameOrEmail { get; set; }
