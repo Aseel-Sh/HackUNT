@@ -2,6 +2,7 @@
 using Backend.Data.Models;
 using Backend.Service.DTOs;
 using Backend.Service.Interfaces;
+using Backend.Service.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,17 +25,18 @@ namespace Backend.API.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(ModelState);
+                var errors = ModelState.Values.SelectMany(v => v.Errors.Select(e => e.ErrorMessage)).ToList();
+                return BadRequest(new ApiResponseModel<string> { Status = false, Errors = errors });
             }
 
             if (await _userService.EmailExistsAsync(model.Email))
             {
-                return BadRequest("Email already exists. Please use a different email.");
+                return BadRequest(new ApiResponseModel<string> { Message = "Email already exists. Please use a different email." });
             }
 
             if (await _userService.UserNameExistsAsync(model.Username))
             {
-                return BadRequest("Username already exists. Please use a different username");
+                return BadRequest(new ApiResponseModel<string> { Message = "Username already exists. Please use a different username" });
             }
 
             try
@@ -58,7 +60,6 @@ namespace Backend.API.Controllers
                     return BadRequest(ModelState);
                 }
 
-                // Check if user is active
                 var user = await _userService.ValidateUserAsync(model.UsernameOrEmail, model.Password);
                 if (user == null)
                 {
@@ -70,11 +71,51 @@ namespace Backend.API.Controllers
 
                 return Ok(new ApiResponseModel<object> { Data = new { Success = "Login successful", User = userResponse, Token = token } });
             }
-            catch (Exception ex)
+            catch
             {
                 return StatusCode(500, new ApiResponseModel<string> { Status = false, Message = "An error occurred while processing your request. Please try again later." });
             }
 
         }
+
+
+        [HttpPut("user")]
+        public IActionResult EditUser([FromBody] EditUserDTO userDTO)
+        {
+            try
+            {
+                _userService.UpdateUser(userDTO);
+                return Ok(new ApiResponseModel<string> { Data = "User edited successfully" });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ApiResponseModel<string> { Status = false, Message = ex.Message });
+
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel<string> { Status = false, Message = "Internal server error", Errors = new List<string> { ex.Message } });
+            }
+        }
+
+        [HttpGet("GetUsers")]
+        public async Task<IActionResult> GetUsers()
+        {
+            try
+            {
+                var users = await _userService.GetUsersAsync();
+                return Ok(new ApiResponseModel<List<UserDTO>> { Status = true, Message = "users retrieved successfully", Data = users });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ApiResponseModel<string> { Status = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponseModel<string>
+                { Status = false, Message = "An error occurred while retrieving users.", Errors = new List<string> { ex.Message } });
+            }
+        }
     } 
+
 }

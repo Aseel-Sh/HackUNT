@@ -16,6 +16,8 @@ namespace Backend.Service.Interfaces
         Task<User> ValidateUserAsync(string UsernameOrEmail, string password);
         public string GenerateJwtToken(User user);
         object GetUserResponse(User user);
+        void UpdateUser(EditUserDTO userDTO);
+        Task<List<UserDTO>> GetUsersAsync();
 
 
 
