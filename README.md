@@ -57,6 +57,12 @@ The project follows a **three-tier architecture** for better separation of conce
 
 If we had more time, we would consider adding the following features:
 
+- **In-App Meeting Attendance**:
+  - Allow users to join meetings directly within the application, potentially with integrated video or audio functionality.
+
+- **Calendar View for Meetings**:
+  - Provide a calendar view where users can easily see all scheduled meetings, view details, and manage their schedule.
+
 - **Logging and Monitoring**:
   - Implement structured logging with log levels (e.g., `Debug`, `Info`, `Error`) to track critical actions and diagnose issues.
 
@@ -80,11 +86,5 @@ If we had more time, we would consider adding the following features:
 
 - **User Activity Tracking**:
   - Implement activity tracking to monitor user engagement, providing insights into user behavior and feature usage.
-
-- **In-App Meeting Attendance**:
-  - Allow users to join meetings directly within the application, potentially with integrated video or audio functionality.
-
-- **Calendar View for Meetings**:
-  - Provide a calendar view where users can easily see all scheduled meetings, view details, and manage their schedule.
 
 ---
