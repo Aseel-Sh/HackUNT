@@ -87,6 +87,7 @@ namespace Backend.Service.Repositories
                 Password = hashedPass,
                 Email = dto.Email,
                 TimeZone = dto.TimeZone,
+                roles = dto.Role,
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now,
 
