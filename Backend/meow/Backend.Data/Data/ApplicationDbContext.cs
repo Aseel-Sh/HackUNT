@@ -28,13 +28,15 @@ namespace Backend.Data.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>()
-                .HasMany(u => u.Meetings)
-                .WithMany(m => m.Users);
+       .HasMany(u => u.Meetings)
+       .WithMany(m => m.Users)
+       .UsingEntity(j => j.ToTable("MeetingUser"));
+        
 
             modelBuilder.Entity<User>()
                 .HasMany(u => u.Availabilities)
-                .WithMany(a => a.Users);
-
+                .WithMany(a => a.Users)
+                .UsingEntity(j => j.ToTable("AvailabilityUser"));
         }
     }
 
