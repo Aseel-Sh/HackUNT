@@ -3,6 +3,7 @@ import './styling.css';
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
 import ghost from './assets/Ghost.gif'
+import { Link } from 'react-router-dom'
 
 export default function LandingPage() {
 
@@ -19,17 +20,15 @@ export default function LandingPage() {
              width: '100vw',
              top: 0,
              left: 0,    
-             transform: 'scale(.1)',
-             transform: 'scaleX(-1)',
+             transform: 'scale(-1)',
              zIndex: 1
             }}>
         </div>
         <div className="monster-container" style={{
             zIndex: 2,
-            
+            backgroundColor: "#212529"
         }}> 
             <img src={ghost}></img>
-
         </div>
         <div className="nes-container is-dark is-centered" 
         style={{
@@ -41,8 +40,8 @@ export default function LandingPage() {
             margin: '0',
             display: 'flex',
             flexDirection: 'column',
-            maxWidth: '50%',
-            maxHeight: '50%'
+            maxWidth: '50vw',
+            maxHeight: '50vh'
             
         }}>
             <h1 
@@ -59,18 +58,15 @@ export default function LandingPage() {
                 textWrap: 'wrap'
         
             }}>A time-aware meeting scheduler, where everyone's availability is heard</p>
-             <button className="nes-btn" style={{
-                backgroundColor: "#CD04FF",
-                boxShadow: "#680082",
-                zIndex: 2,
-                color: 'white'
-            }}>Go To Dashboard</button>
-
+            <Link to='/sign-in'>
+                <button className="nes-btn" style={{
+                    backgroundColor: "#CD04FF",
+                    boxShadow: "#680082",
+                    zIndex: 2,
+                    color: 'white'
+                }}>Go To Dashboard</button>
+            </Link>
         </div>
-
-           
-
-
     </div>
     );
 

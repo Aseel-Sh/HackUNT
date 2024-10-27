@@ -26,8 +26,7 @@ export default function signIn() {
             height: '100vh',
             width: '100vw',
             top: 0,
-            left: 0,    
-            transform: 'scale(.1)',
+            left: 0,
             transform: 'scaleX(-1)',
             zIndex: 1
         }
