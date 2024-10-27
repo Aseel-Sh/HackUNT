@@ -66,5 +66,19 @@ namespace Backend.Service.Repositories
             await _context.SaveChangesAsync();
 
         }
+
+        public async Task<List<Availability>> GetAvailabilitiesByUserIdAsync(int userId)
+        {
+            var availabilities = await _context.Availabilities
+                .Where(a => a.UserId == userId)
+                .ToListAsync();
+
+            if (availabilities == null || availabilities.Count == 0)
+            {
+                throw new KeyNotFoundException("No availabilities found for this user.");
+            }
+
+            return availabilities;
+        }
     }
 }

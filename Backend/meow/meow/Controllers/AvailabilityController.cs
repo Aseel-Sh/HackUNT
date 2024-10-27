@@ -21,7 +21,7 @@ namespace Backend.API.Controllers
         }
 
         [HttpPost("createAvailability")]
-        public async Task <IActionResult> createAvailability(CreateAvailabilityDTO model)
+        public async Task <IActionResult> createAvailability([FromBody]CreateAvailabilityDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -37,6 +37,25 @@ namespace Backend.API.Controllers
             catch (Exception ex) 
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel<string> { Status = false, Message = "An error occurred while creating the user.", Errors = new List<string> { ex.Message } });
+            }
+        }
+
+        [HttpGet("user/{UserId}")]
+        public async Task<IActionResult> GetAvailabilityByUserId(int UserId)
+        {
+            try
+            {
+                var availabilities = await _availabilityService.GetAvailabilitiesByUserIdAsync(UserId);
+                return Ok(new ApiResponseModel<List<Availability>>{Status = true, Message = "Availabilities retrieved successfully", Data = availabilities});
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ApiResponseModel<string> {Status = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponseModel<string>
+                { Status = false, Message = "An error occurred while retrieving availabilities.", Errors = new List<string> { ex.Message }});
             }
         }
     }

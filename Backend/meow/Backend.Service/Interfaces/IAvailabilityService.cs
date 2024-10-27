@@ -1,4 +1,5 @@
-﻿using Backend.Service.DTOs;
+﻿using Backend.Data.Models;
+using Backend.Service.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace Backend.Service.Interfaces
     public interface IAvailabilityService
     {
         Task CreateAvailabilityAsync(CreateAvailabilityDTO dto);
+        Task<List<Availability>> GetAvailabilitiesByUserIdAsync(int userId);
     }
 }
