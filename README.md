@@ -1,1 +1,1 @@
-# HackUNT
+# SyncItUp
