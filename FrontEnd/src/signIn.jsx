@@ -79,19 +79,18 @@ export default function signIn() {
                     marginBottom: "2rem",
                     border: "0",
                     margin: "0",
-                    zIndex: 3
+                    zIndex: 5
                 }}
             > 
                 <label>Username:</label>
                 <input
                 type='text'
-                class = 'input.is-dark'
+                class = 'nes-input is-dark'
                 style={{
                     backgroundColor: "#AD02D7",
                     color: "#00FF37",
                     fontSize: "2rem",
                     marginBottom: "2rem",
-                    border: "0",
                     margin: "0"
                 }}
                 onChange={() => {setUsername}}/>
@@ -102,18 +101,17 @@ export default function signIn() {
                     marginBottom: "2rem",
                     border: "0",
                     margin: "0",
-                    zIndex: 3
+                    zIndex: 5
                 }}
             >
                 <label>Password:</label>
                 <input
-                class="input.is-dark"
+                class="nes-input is-dark"
                 style={{
                     backgroundColor: "#00FF37",
                     color: "#FF8408",
                     fontSize: "2rem",
                     marginBottom: "2rem",
-                    border: "0",
                     margin: "0"
                 }}
                 type='password'
