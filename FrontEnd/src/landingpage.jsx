@@ -8,36 +8,41 @@ export default function LandingPage() {
     return (
         <>
         <div style={{
-            
+             backgroundImage: `url(${webs})`,
+             position: 'absolute',
+             height: '100vh',
+             width: '100vw',
+             top: 0,
+             left: 0,    
+             transform: 'scale(.1)',
+             transform: 'scaleX(-1)',
+             zIndex: 1
             }}>
-            <img src={webs} style={{
-                position: 'absolute',
-                height: '1920px',
-                width: '1080px',
-                top: '0',
-                left: '0',
-                
-            }} />
         </div>
 
-        <div className="nes-container is-dark with-title is-centered" 
+        <div className="nes-container is-dark is-centered" 
         style={{
             textAlign: 'center',
             justifyContent: 'center',
             alignContent: 'center',
             backgroundColor: '#212529',
             border: '0',
-            margin: '0'
+            margin: '0',
+            maxWidth: '50%',
+            
             
         }}>
             <h1 
             style={{
                 textAlign: 'center', 
+                justifyContent: 'center',
+                alignContent: 'center',
                 border: '0',
-                margin: '0'
+                margin: '0',
+                textWrap: 'wrap'
             }}
             >SyncItUp</h1>
-            <p>A time-aware meeting scheduler, where everyone’s availability is heard</p>
+            <p>A time-aware meeting scheduler, where everyone's availability is heard</p>
 
         </div>
         <div className="nes-container is-dark is-centered" style={{
