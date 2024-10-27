@@ -33,6 +33,6 @@ namespace Backend.Data.Models
 
         public List<Availability> Availabilities { get; set; } = new List<Availability>();
 
-
+       
     }
 }

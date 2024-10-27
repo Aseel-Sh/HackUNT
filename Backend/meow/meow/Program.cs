@@ -1,7 +1,10 @@
 using Backend.Data.Data;
 using Backend.Service.Interfaces;
 using Backend.Service.Repositories;
+<<<<<<< HEAD
+=======
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+>>>>>>> b3a4991d315c84083a0f77dbe7d38367f558d604
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -12,11 +15,15 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+<<<<<<< HEAD
+builder.Services.AddScoped<IMeetingService, MeetingRepo>();
+=======
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAvailabilityService, AvailabilityService>();
 builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
 
+>>>>>>> b3a4991d315c84083a0f77dbe7d38367f558d604
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
