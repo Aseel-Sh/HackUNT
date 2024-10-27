@@ -1,10 +1,18 @@
 import { useState } from 'react'
 import './styling.css';
+import { useNavigate } from "react-router-dom"
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
 import ghost from './assets/Ghost.gif'
 
 export default function LandingPage() {
+    //Use this exact function to create a way to navigate the routes
+    /*DO NOT FORGET TO ADD THE ROUTE TO THE ROUTE LIST IN main.jsx*/
+    let navigate = useNavigate();
+    const routeChange = () =>{
+        let path = 'signIn';
+        navigate(path);
+    }
 
     return (
         <div className="container" style={{
@@ -60,12 +68,17 @@ export default function LandingPage() {
                 textWrap: 'wrap'
         
             }}>A time-aware meeting scheduler, where everyone's availability is heard</p>
-             <button className="nes-btn" style={{
+             <button className="nes-btn" 
+             style={{
                 backgroundColor: "#CD04FF",
                 boxShadow: "#680082",
                 zIndex: 2,
-                color: 'white'
-            }}>Go To Dashboard</button>
+                color: 'white',
+            }}
+            onClick={routeChange}
+            >
+                Dashboard
+            </button>
         </div>
            
 

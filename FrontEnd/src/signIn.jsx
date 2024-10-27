@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import './styling.css'
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
@@ -7,6 +9,14 @@ import webs from './assets/webs.png'
 export default function signIn() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
+
+    //Navigates to dashboard without credentials for now
+    let navigate = useNavigate();
+    const routeChange = () =>{
+        let path = 'dashboard';
+        navigate(path);
+    }
+
 
     const styles = {
         textDiv: {
@@ -115,7 +125,7 @@ export default function signIn() {
             style={{
                 margin: "0",
                 border: "0",
-                zIndex: 3
+                zIndex: 4
             }}>
             <label>
                 <input type='checkbox' class="nes-checkbox is-dark" />
@@ -137,7 +147,7 @@ export default function signIn() {
             <a href='https://google.com' style={{color:"white", zIndex: 4}}>Forgor Password</a>
             <button
                 class="nes-btn"
-                onClick={validate}
+                onClick={routeChange}
                 style={{
                     backgroundColor: "#FF8408",
                     width: "60rem",
@@ -145,7 +155,7 @@ export default function signIn() {
                     zIndex: 5
                 }}
             >Login</button>
-            <label style={{zIndex: 4}}>Don't have an account? <a href='https://google.com' style={{color:'white'}}>Sign Up</a></label>
+            <label style={{zIndex: 4}}>Don't have an account? <Link to='/signUp' style={{color:'white'}}>Sign Up</Link></label>
             </div>
         </div>
     )
