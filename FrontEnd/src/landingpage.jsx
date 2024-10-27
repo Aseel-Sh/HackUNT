@@ -2,74 +2,59 @@ import { useState } from 'react'
 import './styling.css';
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
-import ghost from './assets/Ghost.gif'
-/* import { Link } from 'react-router-dom' */
 
 export default function LandingPage() {
 
     return (
-        <div className="container" style={{
-            display: 'flex',
-            alignContent: 'center',
-            justifyContent: 'center'
-        }}>
-        <div className="web-container" style={{
-             backgroundImage: `url(${webs})`,
-             position: 'absolute',
-             height: '100vh',
-             width: '100vw',
-             top: 0,
-             left: 0,    
-             transform: 'scale(-1)',
-             zIndex: 1
+        <>
+        <div style={{
+            
             }}>
+            <img src={webs} style={{
+                position: 'absolute',
+                height: '1920px',
+                width: '1080px',
+                top: '0',
+                left: '0',
+                
+            }} />
         </div>
-        <div className="monster-container" style={{
-            zIndex: 2,
-            backgroundColor: "#212529"
-        }}> 
-            <img src={ghost} style={{
-                height: '30%'
-            }}></img>
-        </div>
-        <div className="nes-container is-dark is-centered" 
+
+        <div className="nes-container is-dark with-title is-centered" 
         style={{
             textAlign: 'center',
             justifyContent: 'center',
             alignContent: 'center',
             backgroundColor: '#212529',
             border: '0',
-            margin: '0',
-            display: 'flex',
-            flexDirection: 'column',
-            maxWidth: '50vw',
-            maxHeight: '50vh'
+            margin: '0'
             
         }}>
             <h1 
             style={{
                 textAlign: 'center', 
-                justifyContent: 'center',
-                alignContent: 'center',
                 border: '0',
-                margin: '0',
-                fontSize: '60px'
+                margin: '0'
             }}
             >SyncItUp</h1>
-            <p style={{
-                textWrap: 'wrap'
-        
-            }}>A time-aware meeting scheduler, where everyone's availability is heard</p>
-            <Link to='/sign-in'>
-                <button className="nes-btn" style={{
-                    backgroundColor: "#CD04FF",
-                    boxShadow: "#680082",
-                    zIndex: 2,
-                    color: 'white'
-                }}>Go To Dashboard</button>
-            </Link>
+            <p>A time-aware meeting scheduler, where everyone’s availability is heard</p>
+
         </div>
-    </div>
+        <div className="nes-container is-dark is-centered" style={{
+            textAlign: 'center',
+            border: '0',
+            margin: '0'
+        }}>
+
+            <button className="nes-btn" style={{
+                backgroundColor: "#CD04FF",
+                boxShadow: "#680082"
+            }}>Go To Dashboard</button>
+        </div>
+        
+
+
+    </>
     );
 
 }

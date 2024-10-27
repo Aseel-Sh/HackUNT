@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './styling.css'
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
-import signUp from './signUp';
 
 
 export default function signIn() {
@@ -26,7 +25,8 @@ export default function signIn() {
             height: '100vh',
             width: '100vw',
             top: 0,
-            left: 0,
+            left: 0,    
+            transform: 'scale(.1)',
             transform: 'scaleX(-1)',
             zIndex: 1
         }
@@ -143,7 +143,7 @@ export default function signIn() {
                     padding: "0"
                 }}
             >Login</button>
-            <label style={{zIndex: 3}}>Don't have an account? <a href="./signUp" style={{color:'white', zIndex: 3}}>Sign Up</a></label>
+            <label>Don't have an account? <a href='https://google.com' style={{color:'white'}}>Sign Up</a></label>
             </div>
         </div>
     )
