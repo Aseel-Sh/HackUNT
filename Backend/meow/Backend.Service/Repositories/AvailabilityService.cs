@@ -110,5 +110,18 @@ namespace Backend.Service.Repositories
             _context.Availabilities.Update(availability);
             _context.SaveChanges();
         }
+
+        public async Task DeleteAvailabilityAsync(int id)
+        {
+            var availability = await _context.Availabilities.FindAsync(id);
+
+            if (availability == null)
+            {
+                throw new Exception("Availability with the specified ID not found.");
+            }
+
+            _context.Availabilities.Remove(availability);
+            await _context.SaveChangesAsync();
+        }
     }
 }

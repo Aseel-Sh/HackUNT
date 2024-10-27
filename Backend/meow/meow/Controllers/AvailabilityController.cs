@@ -21,7 +21,7 @@ namespace Backend.API.Controllers
         }
 
         [HttpPost("createAvailability")]
-        public async Task <IActionResult> createAvailability([FromBody]CreateAvailabilityDTO model)
+        public async Task<IActionResult> createAvailability([FromBody] CreateAvailabilityDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -32,9 +32,9 @@ namespace Backend.API.Controllers
             try
             {
                 await _availabilityService.CreateAvailabilityAsync(model);
-                return Ok(new ApiResponseModel<string> {Data = "Availability Added Successfully"});
+                return Ok(new ApiResponseModel<string> { Data = "Availability Added Successfully" });
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel<string> { Status = false, Message = "An error occurred while creating the user.", Errors = new List<string> { ex.Message } });
             }
@@ -46,16 +46,16 @@ namespace Backend.API.Controllers
             try
             {
                 var availabilities = await _availabilityService.GetAvailabilitiesByUserIdAsync(UserId);
-                return Ok(new ApiResponseModel<List<Availability>>{Status = true, Message = "Availabilities retrieved successfully", Data = availabilities});
+                return Ok(new ApiResponseModel<List<Availability>> { Status = true, Message = "Availabilities retrieved successfully", Data = availabilities });
             }
             catch (KeyNotFoundException ex)
             {
-                return NotFound(new ApiResponseModel<string> {Status = false, Message = ex.Message });
+                return NotFound(new ApiResponseModel<string> { Status = false, Message = ex.Message });
             }
             catch (Exception ex)
             {
                 return StatusCode(500, new ApiResponseModel<string>
-                { Status = false, Message = "An error occurred while retrieving availabilities.", Errors = new List<string> { ex.Message }});
+                { Status = false, Message = "An error occurred while retrieving availabilities.", Errors = new List<string> { ex.Message } });
             }
         }
 
@@ -65,9 +65,9 @@ namespace Backend.API.Controllers
             try
             {
                 _availabilityService.UpdateAvailability(availabilityDTO);
-                return Ok(new ApiResponseModel<string> { Status = true, Message = "Availability Edited Successfully" }); 
+                return Ok(new ApiResponseModel<string> { Status = true, Message = "Availability Edited Successfully" });
             }
-            catch (KeyNotFoundException ex) 
+            catch (KeyNotFoundException ex)
             {
                 return NotFound(new ApiResponseModel<string> { Status = false, Message = ex.Message });
 
@@ -75,6 +75,37 @@ namespace Backend.API.Controllers
             catch (Exception ex)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, new ApiResponseModel<string> { Status = false, Message = "Internal server error", Errors = new List<string> { ex.Message } });
+            }
+        }
+
+        [HttpDelete("id")]
+        public async Task<IActionResult> DeleteAvailability(int id)
+        {
+            try
+            {
+                await _availabilityService.DeleteAvailabilityAsync(id);
+                return Ok(new ApiResponseModel<string>
+                {
+                    Status = true,
+                    Message = "Availability deleted successfully"
+                });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new ApiResponseModel<string>
+                {
+                    Status = false,
+                    Message = ex.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponseModel<string>
+                {
+                    Status = false,
+                    Message = "An error occurred while deleting availability.",
+                    Errors = new List<string> { ex.Message }
+                });
             }
         }
     }
