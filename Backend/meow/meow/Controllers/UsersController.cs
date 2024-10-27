@@ -77,5 +77,15 @@ namespace Backend.API.Controllers
             }
 
         }
+
+
+        [HttpPut("user")]
+        public IActionResult EditUser([FromBody] EditUserDTO userDTO)
+        {
+            try
+            {
+                _userService
+            }
+        }
     } 
 }
