@@ -3,6 +3,8 @@
 
 ## Overview
 
+Note: This project is incomplete due to time constraints, the backend and front end are not conneted.
+
 This project is a meeting scheduling application developed for the **HackUNT Hackathon**. The application allows users to create, view, and manage meetings across different time zones. Users can create meetings, invite participants, and view meeting times adjusted for their local timezone. By automating timezone conversions, this tool provides a seamless scheduling experience, ensuring that users never have to manually calculate meeting times or worry about timezone errors.
 
 ## Why This Tool is Useful
