@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import './styling.css'
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
@@ -147,8 +148,9 @@ export default function signIn() {
                     zIndex: 3
                 }}
             >Login</button>
-            <label style={{zIndex: 3}}>Don't have an account? <a href='https://google.com' style={{color:'white', zIndex: 3}}>Sign Up</a></label>
+            <label style={{zIndex: 3}}>Don't have an account? <Link to="/signUp" style={{color:'white', zIndex: 3}}>Sign Up</Link></label>
             </div>
+
         </div>
     )
 }
