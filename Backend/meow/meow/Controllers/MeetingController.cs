@@ -47,17 +47,44 @@ namespace Backend.API.Controllers
         }
 
 
-        [HttpGet("user/{userId}/meetings")]
-        public async Task<IActionResult> GetMeetingsByUserId(int userId)
+        [HttpGet("GetMeetingsByUserId")]
+        public async Task<IActionResult> GetMeetingsByUserId(int userId, string timeZone)
         {
             try
             {
-                var meetings = await _meetingService.GetAllMeetingsByUserIdAsync(userId);
-                return Ok(meetings);
+                var meetings = await _meetingService.GetAllMeetingsByUserIdAsync(userId, timeZone);
+
+                return Ok(new
+                {
+                    Status = true,
+                    Message = "Meetings retrieved successfully",
+                    Data = meetings
+                });
+            }
+            catch (TimeZoneNotFoundException)
+            {
+                return BadRequest(new
+                {
+                    Status = false,
+                    Message = "The specified timezone was not found."
+                });
+            }
+            catch (InvalidTimeZoneException)
+            {
+                return BadRequest(new
+                {
+                    Status = false,
+                    Message = "The specified timezone is invalid."
+                });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Internal server error: " + ex.Message);
+                return StatusCode(500, new
+                {
+                    Status = false,
+                    Message = "An error occurred while retrieving meetings.",
+                    Error = ex.Message
+                });
             }
         }
 

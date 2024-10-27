@@ -14,9 +14,11 @@ namespace Backend.Service.Interfaces
 
         Task<bool> DeleteMeetingAsync(int meetingId);
 
-        Task<List<Meeting>> GetAllMeetingsByUserIdAsync(int userId);
+        Task<List<MeetingWithLocalTimeDTO>> GetAllMeetingsByUserIdAsync(int userId, string TimeZone);
 
         Task<bool> UpdateMeetingAsync(int meetingId, Meeting updatedMeeting);
+        Task<bool> AssignMeetingToParticipantAsync(int meetingId, int participantId, string participantTimeZone);
+
 
     }
 }

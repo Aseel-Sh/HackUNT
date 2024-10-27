@@ -33,11 +33,28 @@ namespace Backend.Service.Repositories
                 throw new ArgumentException("End time must be greater than start time.");
             }
 
+            TimeZoneInfo userTimeZone;
+            try
+            {
+                userTimeZone = TimeZoneInfo.FindSystemTimeZoneById(DTO.TimeZone);
+            }
+            catch (TimeZoneNotFoundException)
+            {
+                throw new ArgumentException("The specified timezone was not found.");
+            }
+            catch (InvalidTimeZoneException)
+            {
+                throw new ArgumentException("The specified timezone is invalid.");
+            }
+
+            DateTimeOffset startTimeUtc = DTO.startTime.ToUniversalTime();
+            DateTimeOffset endTimeUtc = DTO.endTime.ToUniversalTime();
+
             var CreatedMeeting = new Meeting
             {
                 Title = DTO.Title, // This must be correctly assigned
-                startTime = DTO.startTime,
-                endTime = DTO.endTime,
+                startTime = startTimeUtc,
+                endTime = endTimeUtc,
                 Description = DTO.Description,
                 CreatedByUserID = DTO.CreatedByUserID
             };
@@ -91,16 +108,27 @@ namespace Backend.Service.Repositories
         }
 
 
-        public async Task<List<Meeting>> GetAllMeetingsByUserIdAsync(int userId)
+        public async Task<List<MeetingWithLocalTimeDTO>> GetAllMeetingsByUserIdAsync(int userId, string TimeZone)
         {
-            
-                // Fetch all meetings created by the user with the specified user ID
-                var meetings = await _context.Meetings
+            var userTimeZoneInfo = TimeZoneInfo.FindSystemTimeZoneById(TimeZone);
+
+            // Fetch all meetings created by the user with the specified user ID
+            var meetings = await _context.Meetings
                     .Where(m => m.CreatedByUserID == userId) // Filter meetings where CreatedByUserID matches the userId
                     .ToListAsync();
 
-                return meetings;
-            
+                return meetings.Select(meeting => new MeetingWithLocalTimeDTO
+                {
+                    Id = meeting.Id,
+                    Title = meeting.Title,
+                    Description = meeting.Description,
+                    StartTimeUtc = meeting.startTime,
+                    EndTimeUtc = meeting.endTime,
+                    StartTimeLocal = TimeZoneInfo.ConvertTime(meeting.startTime, userTimeZoneInfo),
+                    EndTimeLocal = TimeZoneInfo.ConvertTime(meeting.endTime, userTimeZoneInfo),
+                    LocalTimeZone = TimeZone
+                }).ToList();
+
         }
 
 
@@ -128,6 +156,32 @@ namespace Backend.Service.Repositories
 
             // Save changes to the database
             await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> AssignMeetingToParticipantAsync(int meetingId, int participantId, string participantTimeZone)
+        {
+            var meeting = await _context.Meetings.Include(m => m.Users).FirstOrDefaultAsync(m => m.Id == meetingId);
+
+            if (meeting == null)
+            {
+                throw new Exception("Meeting not found.");
+            }
+
+            var participant = await _context.Users.FirstOrDefaultAsync(u => u.Id == participantId);
+            if (participant == null)
+            {
+                throw new Exception("Participant not found.");
+            }
+
+            if (meeting.Users.Any(u => u.Id == participantId))
+            {
+                throw new Exception("Participant is already assigned to this meeting.");
+            }
+
+            meeting.Users.Add(participant);
+            await _context.SaveChangesAsync();
+
             return true;
         }
 
