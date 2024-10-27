@@ -4,36 +4,12 @@ import { Link } from 'react-router-dom';
 import './styling.css'
 import 'nes.css/css/nes.min.css';
 import webs from './assets/webs.png'
-import axios from 'axios';
+
 
 export default function signIn() {
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
-    const [error, setError] = useState(null); // Holds error msgs
 
-    const handleLogin = async () => {
-        try {
-            const response = await axios.post('https://localhost:7174/api/Users/login', {
-                usernameOrEmail: username,
-                password
-            });
-            const {status, message, data, errors} = response.data;
-
-            if (status) {
-                alert('Login successful!');
-            }
-            else {
-                setError(message || errors.join(','));
-            }
-        } catch (error) {
-            if(error.response && error.response.data) {
-                setError(error.response.data.message || "An error occured. Please try again.");
-            } else {
-                setError("An error occured. Please try again.");
-            }
-        }
-    };
- 
     //Navigates to dashboard without credentials for now
     let navigate = useNavigate();
     const routeChange = () =>{
