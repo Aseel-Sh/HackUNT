@@ -14,8 +14,7 @@ export default function LandingPage() {
              width: '100vw',
              top: 0,
              left: 0,    
-             transform: 'scale(.1)',
-             transform: 'scaleX(-1)',
+             transform: 'scale(-1)',
              zIndex: 1
             }}>
         </div>
