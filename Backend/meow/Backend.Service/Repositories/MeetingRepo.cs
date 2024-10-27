@@ -104,6 +104,34 @@ namespace Backend.Service.Repositories
         }
 
 
+        public async Task<bool> UpdateMeetingAsync(int meetingId, Meeting updatedMeeting)
+        {
+            // Fetch the existing meeting
+            var existingMeeting = await _context.Meetings.FirstOrDefaultAsync(m => m.Id == meetingId);
+
+            if (existingMeeting == null)
+            {
+                return false; // Meeting not found
+            }
+
+            // Update the fields with the values from the updated meeting
+            existingMeeting.Title = updatedMeeting.Title;
+            existingMeeting.Description = updatedMeeting.Description;
+            existingMeeting.startTime = updatedMeeting.startTime;
+            existingMeeting.endTime = updatedMeeting.endTime;
+
+            // Validate the new time range
+            if (existingMeeting.startTime >= existingMeeting.endTime)
+            {
+                throw new ArgumentException("End time must be greater than start time.");
+            }
+
+            // Save changes to the database
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+
 
 
     }

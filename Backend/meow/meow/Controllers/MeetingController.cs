@@ -60,5 +60,28 @@ namespace Backend.API.Controllers
                 return StatusCode(500, "Internal server error: " + ex.Message);
             }
         }
+
+        [HttpPut("{meetingId}")]
+        public async Task<IActionResult> UpdateMeeting(int meetingId, [FromBody] Meeting updatedMeeting)
+        {
+            try
+            {
+                var result = await _meetingService.UpdateMeetingAsync(meetingId, updatedMeeting);
+                if (!result)
+                {
+                    return NotFound($"Meeting with ID {meetingId} not found.");
+                }
+
+                return Ok("Meeting updated successfully.");
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error: " + ex.Message);
+            }
+        }
     }
 }

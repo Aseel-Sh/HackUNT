@@ -16,5 +16,7 @@ namespace Backend.Service.Interfaces
 
         Task<List<Meeting>> GetAllMeetingsByUserIdAsync(int userId);
 
+        Task<bool> UpdateMeetingAsync(int meetingId, Meeting updatedMeeting);
+
     }
 }
