@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Backend.Data.Models.Enums;
+using static Backend.Service.DTOs.AttachmentDTO;
 
 namespace Backend.Service.Repositories
 {
@@ -21,11 +22,14 @@ namespace Backend.Service.Repositories
     {
         private readonly ApplicationDbContext _context;
         private readonly IConfiguration _configuration;
+        private readonly IAttachmentService _attachmentService;
 
-        public UserService(ApplicationDbContext context, IConfiguration configuration)
+
+        public UserService(ApplicationDbContext context, IConfiguration configuration, IAttachmentService attachmentService)
         {
             _context = context;  
             _configuration = configuration;
+            _attachmentService = attachmentService;
         }
 
         public async Task<bool> EmailExistsAsync(string email)
@@ -97,6 +101,28 @@ namespace Backend.Service.Repositories
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
+            if (!string.IsNullOrEmpty(dto.FilePath) && !string.IsNullOrEmpty(dto.FileName))
+            {
+                var createUserAttachmentDTO = new CreateUserAttachmentDTO
+                {
+                    UserId = user.Id,
+                    FileName = dto.FileName,
+                    FilePath = dto.FilePath
+                };
+
+                try
+                {
+                    _attachmentService.UploadUserProfilePicture(createUserAttachmentDTO);
+                    await _context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    _context.Users.Remove(user);
+                    await _context.SaveChangesAsync();
+                    throw new Exception("Failed to upload image: " + ex.Message);
+                }
+
+            }
         }
 
         public Task<bool> UserNameExistsAsync(string userName)
@@ -123,10 +149,32 @@ namespace Backend.Service.Repositories
             var user = _context.Users.FirstOrDefault(a => a.Id == userDTO.Id);
             if (user == null)
             {
-                throw new Exception("user with that Id not found");
+                throw new Exception("User with that ID not found");
             }
 
             user.isActive = userDTO.isActive;
+
+            if (!string.IsNullOrEmpty(userDTO.FilePath) && !string.IsNullOrEmpty(userDTO.FileName))
+            {
+                var existingAttachment = _context.Attachments.FirstOrDefault(a => a.UserId == userDTO.Id);
+                if (existingAttachment != null)
+                {
+                    var oldImagePath = Path.Combine(Directory.GetCurrentDirectory(), "Attachments", existingAttachment.FileName);
+                    if (File.Exists(oldImagePath))
+                    {
+                        File.Delete(oldImagePath);
+                    }
+
+                    _context.Attachments.Remove(existingAttachment);
+                }
+
+                var newImageFileName = _attachmentService.UploadUserProfilePicture(new CreateUserAttachmentDTO
+                {
+                    UserId = userDTO.Id,
+                    FileName = userDTO.FileName,
+                    FilePath = userDTO.FilePath 
+                });
+            }
 
             _context.Users.Update(user);
             _context.SaveChanges();
@@ -140,7 +188,10 @@ namespace Backend.Service.Repositories
                                                 Username = u.Username,
                                                 Email = u.Email,
                                                 TimeZone = u.TimeZone,
-                                                Role = u.roles
+                                                Role = u.roles,
+                                                FileName = u.Attachments.Select(a => a.FileName).FirstOrDefault(),
+                                                FilePath = u.Attachments.Select(a => a.FilePath).FirstOrDefault(),
+
                                               }).ToListAsync();
             if (users == null || users.Count == 0)
             {

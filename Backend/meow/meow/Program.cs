@@ -14,6 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAvailabilityService, AvailabilityService>();
+builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
 
 builder.Services.AddControllers();
