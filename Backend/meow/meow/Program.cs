@@ -20,6 +20,7 @@ builder.Services.AddScoped<IMeetingService, MeetingRepo>();
 =======
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAvailabilityService, AvailabilityService>();
+builder.Services.AddScoped<IAttachmentService, AttachmentService>();
 
 
 >>>>>>> b3a4991d315c84083a0f77dbe7d38367f558d604

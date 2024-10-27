@@ -15,6 +15,8 @@ namespace Backend.Service.DTOs
         public string Email { get; set; }
         public string Password { get; set; }
         public string TimeZone { get; set; }
+        public string? FileName { get; set; }
+        public string? FilePath { get; set; }
         public Roles Role { get; set; }
     }
 
@@ -24,6 +26,8 @@ namespace Backend.Service.DTOs
         public string Username { get; set; }
         public string Email { get; set; }
         public string TimeZone { get; set; }
+        public string? FileName { get; set; }
+        public string? FilePath { get; set; }
         public Roles Role { get; set; }
     }
 
@@ -38,5 +42,7 @@ namespace Backend.Service.DTOs
     {
         public int Id { get; set; } 
         public bool isActive { get; set; }
+        public string? FileName { get; set; }
+        public string? FilePath { get; set; }
     }
 }
