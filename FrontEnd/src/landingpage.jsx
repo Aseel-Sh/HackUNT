@@ -18,9 +18,8 @@ export default function LandingPage() {
              height: '100vh',
              width: '100vw',
              top: 0,
-             left: 0,    
-             transform: 'scale(.1)',
-             transform: 'scaleX(1)',
+             left: 0,
+             transform: 'scaleX(-1)',
              zIndex: 1
             }}>
         </div>
@@ -30,7 +29,7 @@ export default function LandingPage() {
             maxWidth: '200wh'
             
         }}> 
-            <img src={ghost}></img>
+            <img style={{width: "15vw"}} src={ghost}></img>
 
         </div>
         <div className="nes-container is-dark is-centered" 
